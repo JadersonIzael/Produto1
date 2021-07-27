@@ -9,8 +9,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
 namespace ApiProdutos
 {
@@ -26,7 +29,7 @@ namespace ApiProdutos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddTransient<IDbConnection>(db => new SqlConnection(Configuration.GetConnectionString("dbProdutos")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
