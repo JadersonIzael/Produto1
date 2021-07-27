@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ApiProdutos.Controllers
@@ -41,27 +42,68 @@ namespace ApiProdutos.Controllers
             var productId = _dbConnection.QuerySingle<long>("INSERT INTO Produtos (Codigo, Descricao, Estoque, Preco) VALUES (@Codigo, @Descricao, @Estoque, @Preco); SELECT CAST(SCOPE_IDENTITY() as int);", new DynamicParameters(parameters));
             product.Id = (int)productId;
             return product;
-            //var rng = new Random();
-            //return Enumerable.Range(1, 5).Select(index => new Product
-            //{
-            //    Date = DateTime.Now.AddDays(index),
-            //    TemperatureC = rng.Next(-20, 55),
-            //    Summary = Summaries[rng.Next(Summaries.Length)]
-            //})
-            //.ToArray();
         }
 
-        //[HttpGet]
-        //public IEnumerable<Product> Get()
-        //{
-        //    var rng = new Random();
-        //    return Enumerable.Range(1, 5).Select(index => new Product
-        //    {
-        //        Date = DateTime.Now.AddDays(index),
-        //        TemperatureC = rng.Next(-20, 55),
-        //        Summary = Summaries[rng.Next(Summaries.Length)]
-        //    })
-        //    .ToArray();
-        //}
+        [HttpPatch]
+        public Product Patch([FromBody] Product product) //patch é update
+        {
+            // mapeamento
+            Produto produto = new Produto();
+            produto = product.AsProduto();
+            //Abaixo parametro da query do dapper
+            var parameters = new Dictionary<string, object>()
+            {
+                {"@Codigo", produto.Codigo },
+                {"@Descricao", produto.Descricao },
+                {"@Estoque", produto.Estoque },
+                {"@Preco", produto.Preco },
+
+            };
+            //
+            var productId = _dbConnection.QuerySingle<long>("INSERT INTO Produtos (Codigo, Descricao, Estoque, Preco) VALUES (@Codigo, @Descricao, @Estoque, @Preco); SELECT CAST(SCOPE_IDENTITY() as int);", new DynamicParameters(parameters));
+            product.Id = (int)productId;
+            return product;
+        }
+
+        [HttpGet]
+        [Route("{productId}")]
+        public Product Get(int productId)
+        {
+            var query = new StringBuilder();
+            query.Append("SELECT * FROM Produtos ")
+                 .Append($"WHERE Produtos.Id = {productId}");
+
+            var parameters = new DynamicParameters();
+
+            //mapamento
+            var produto = _dbConnection.QueryFirstOrDefault<Produto>(query.ToString(), parameters);
+            if (produto == null)
+            {
+                //return new Produto(); retorna uma tabela vazia
+                return null;
+            }
+            Product product = new Product();
+            product = produto.AsProduct();
+            return product;
+        }
+
+        [HttpGet]
+        [Route("list")]
+        public List<Product> List()
+        {
+            var query = new StringBuilder();
+            query.Append("SELECT * FROM Produtos ");
+
+            var parameters = new DynamicParameters();
+
+            IEnumerable<Produto> produtos = _dbConnection.Query<Produto>(query.ToString(), parameters);
+            List<Product> productList = new List<Product>();
+            foreach(Produto produto in produtos)
+            {
+                productList.Add(produto.AsProduct());
+            } 
+            
+            return productList;
+        }
     }
 }
