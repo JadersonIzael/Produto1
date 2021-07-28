@@ -44,8 +44,8 @@ namespace ApiProdutos.Controllers
             return product;
         }
 
-        [HttpPatch]
-        public Product Patch([FromBody] Product product) //patch é update
+        [HttpPut]        
+        public Product Put([FromBody] Product product) //patch é update
         {
             // mapeamento
             Produto produto = new Produto();
@@ -60,8 +60,7 @@ namespace ApiProdutos.Controllers
 
             };
             //
-            var productId = _dbConnection.QuerySingle<long>("INSERT INTO Produtos (Codigo, Descricao, Estoque, Preco) VALUES (@Codigo, @Descricao, @Estoque, @Preco); SELECT CAST(SCOPE_IDENTITY() as int);", new DynamicParameters(parameters));
-            product.Id = (int)productId;
+            _dbConnection.Execute($"UPDATE Produtos SET Codigo=@Codigo, Descricao=@Descricao, Estoque=@Estoque, Preco=@Preco WHERE Produtos.id = {product.Id}", new DynamicParameters(parameters));
             return product;
         }
 
