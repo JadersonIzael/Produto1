@@ -99,7 +99,8 @@ namespace ApiProdutos.Controllers
         public List<Product> List()
         {
             var query = new StringBuilder();
-            query.Append("SELECT * FROM Produtos WHERE Produtos.Deletado = 0");
+            query.Append("SELECT * FROM Produtos")
+                 .Append("WHERE Produtos.Deletado = 0");
 
             var parameters = new DynamicParameters();
 
@@ -111,6 +112,28 @@ namespace ApiProdutos.Controllers
             } 
             
             return productList;
+        }
+        [HttpGet]
+        [Route("combo")]
+        public List<ComboItem> Combo()
+        {
+            var query = new StringBuilder();
+            query.Append("SELECT Produtos.Id, Produtos.Descricao FROM Produtos ")
+                 .Append("WHERE Produtos.Deletado = 0");
+
+            var parameters = new DynamicParameters();
+
+            IEnumerable<Produto> produtos = _dbConnection.Query<Produto>(query.ToString(), parameters);
+            List<ComboItem> comboList = new List<ComboItem>();
+            foreach (Produto produto in produtos)
+            {
+                var comboItem = new ComboItem();
+                comboItem.Id = produto.Id;
+                comboItem.Text = produto.Descricao;
+                comboList.Add(comboItem);
+            }
+
+            return comboList;
         }
     }
 }
