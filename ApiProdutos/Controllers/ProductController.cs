@@ -36,10 +36,11 @@ namespace ApiProdutos.Controllers
                 {"@Descricao", produto.Descricao },
                 {"@Estoque", produto.Estoque },
                 {"@Preco", produto.Preco },
+                {"@Deletado", false },
 
             };
 
-            var productId = _dbConnection.QuerySingle<long>("INSERT INTO Produtos (Codigo, Descricao, Estoque, Preco) VALUES (@Codigo, @Descricao, @Estoque, @Preco); SELECT CAST(SCOPE_IDENTITY() as int);", new DynamicParameters(parameters));
+            var productId = _dbConnection.QuerySingle<long>("INSERT INTO Produtos (Codigo, Descricao, Estoque, Preco, Deletado) VALUES (@Codigo, @Descricao, @Estoque, @Preco, @Deletado); SELECT CAST(SCOPE_IDENTITY() as int);", new DynamicParameters(parameters));
             product.Id = (int)productId;
             return product;
         }
@@ -57,11 +58,18 @@ namespace ApiProdutos.Controllers
                 {"@Descricao", produto.Descricao },
                 {"@Estoque", produto.Estoque },
                 {"@Preco", produto.Preco },
-
+                
             };
             //
             _dbConnection.Execute($"UPDATE Produtos SET Codigo=@Codigo, Descricao=@Descricao, Estoque=@Estoque, Preco=@Preco WHERE Produtos.id = {product.Id}", new DynamicParameters(parameters));
             return product;
+        }
+
+        [HttpDelete]
+        [Route("{productId}")]
+        public void Delete(int productId ) 
+        {
+            _dbConnection.Execute($"UPDATE Produtos SET Deletado=1 WHERE Produtos.id = {productId}");            
         }
 
         [HttpGet]
@@ -70,8 +78,8 @@ namespace ApiProdutos.Controllers
         {
             var query = new StringBuilder();
             query.Append("SELECT * FROM Produtos ")
-                 .Append($"WHERE Produtos.Id = {productId}");
-
+                 .Append($"WHERE Produtos.Id = {productId} ")
+                 .Append("AND Produtos.Deletado = 0");
             var parameters = new DynamicParameters();
 
             //mapamento
@@ -91,7 +99,7 @@ namespace ApiProdutos.Controllers
         public List<Product> List()
         {
             var query = new StringBuilder();
-            query.Append("SELECT * FROM Produtos ");
+            query.Append("SELECT * FROM Produtos WHERE Produtos.Deletado = 0");
 
             var parameters = new DynamicParameters();
 

@@ -12,7 +12,7 @@ namespace ApiProdutos
 
         public int Amount { get; set; }
 
-        public decimal Value { get; set; }
+        public decimal Value { get; set; }        
 
         public Produto AsProduto()
         {

@@ -14,6 +14,8 @@ namespace ApiProdutos
 
         public decimal Preco { get; set; }
 
+        public bool Deletado { get; set; }
+
         public Product AsProduct()
         {
             var product = new Product();
