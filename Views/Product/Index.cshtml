@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Product Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col">
+    <div class="row">
+        <div class="form-group">
+            <label>Id</label>
+            <input type="number" class="form-control" id="productId" name="Id" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label>Codigo</label>
+            <input type="number" class="form-control" id="productCodeId" name="Codigo" step="1" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label>Descricao</label>
+            <input class="form-control" id="productDescriptionId" name="Descricao" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label>Estoque</label>
+            <input type="number" class="form-control" id="productAmountId" name="Estoque" step="1" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <label>Preco</label>
+            <input type="number" class="form-control" id="productValueId" name="Preco" step="0.01" />
+        </div>
+    </div>
+</div>
+<div class="col">
+    <div class="row">
+        <div class="form-group">
+            <input type="Button" class="form-control btn btn-primary" id="btnPost" name="btnPost" value="post" />
+        </div>
+        <div class="form-group">
+            <input type="Button" class="form-control btn btn-info" id="btnGet" name="btnGet" value="get" />
+        </div>
+        <div class="form-group">
+            <input type="Button" class="form-control btn btn-dark" id="btnPut" name="btnPut" value="put" />
+        </div>
+        <div class="form-group">
+            <input type="Button" class="form-control btn btn-secondary" id="btnDelete" name="btnDelete" value="delete" />
+        </div>
+        <div class="form-group">
+            <input type="Button" class="form-control btn btn-danger" id="btnDelete" name="btnPost" value="post" />
+        </div>
+    </div>
+</div>
+
+<table id="productTableId">
+
+</table>
+
+@section Scripts{
+<script src="~/js/createTable.js"></script>
+<script src="~/js/Product.js"></script>}
