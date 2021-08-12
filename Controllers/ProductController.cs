@@ -100,13 +100,39 @@ namespace ApiProduct2.Controllers
             return product;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route("list")]
-        public List<Product> List()
+        public List<Product> List([FromBody] ProductQuery productQuery)
         {
             var query = new StringBuilder();
-            query.Append("SELECT * FROM Produtos")
-                 .Append("WHERE Produtos.Deletado = 0");
+            var where = new StringBuilder();
+            where.Append(" WHERE Produtos.Deletado = 0 ");
+
+            if(productQuery != null)
+            {
+                if (productQuery.Id != null)
+                {
+                    where.Append($" AND Produtos.Id = {productQuery.Id} ");
+                }
+                if (productQuery.Code != null)
+                {
+                    where.Append($" AND Produtos.Codigo = {productQuery.Code} ");
+                }
+                if (productQuery.Description != null)
+                {
+                    where.Append($" AND Produtos.Descricao = {productQuery.Description} ");
+                }
+                if (productQuery.Amount != null)
+                {
+                    where.Append($" AND Produtos.Estoque = {productQuery.Amount} ");
+                }
+                if (productQuery.Value != null)
+                {
+                    where.Append($" AND Produtos.Preco = {productQuery.Value} ");
+                }
+            }
+
+            query.Append($"SELECT * FROM Produtos {where} ");
 
             var parameters = new DynamicParameters();
 

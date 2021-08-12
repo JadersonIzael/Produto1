@@ -38,27 +38,40 @@
 <div class="col">
     <div class="row">
         <div class="form-group">
-            <input type="Button" class="form-control btn btn-primary" id="btnPost" name="btnPost" value="post" />
+            <input type="Button" class="form-control btn btn-primary" id="btnPostId" name="btnPost" value="post" />
         </div>
         <div class="form-group">
-            <input type="Button" class="form-control btn btn-info" id="btnGet" name="btnGet" value="get" />
+            <input type="Button" class="form-control btn btn-info" id="btnGetId" name="btnGet" value="get" />
         </div>
         <div class="form-group">
-            <input type="Button" class="form-control btn btn-dark" id="btnPut" name="btnPut" value="put" />
+            <input type="Button" class="form-control btn btn-dark" id="btnPutId" name="btnPut" value="put" />
+        </div>
+        <div class="form-group" id="deleteItemId">
+            <input type="Button" class="form-control btn btn-secondary" id="btnDeleteId" name="btnDelete" value="delete" />
         </div>
         <div class="form-group">
-            <input type="Button" class="form-control btn btn-secondary" id="btnDelete" name="btnDelete" value="delete" />
-        </div>
-        <div class="form-group">
-            <input type="Button" class="form-control btn btn-danger" id="btnDelete" name="btnPost" value="post" />
+            <input type="Button" class="form-control btn btn-danger" id="btnListId" name="btnList" value="list" />
         </div>
     </div>
 </div>
 
-<table id="productTableId">
+<table class="table table-striped table-bordered" width="100%">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Codigo</th>
+            <th>Descrição</th>
+            <th>Estoque</th>
+            <th>Preço</th>
+            <th>Deletar</th>
+        </tr>
+    </thead>
+    <tbody id=productBodyTableId>
+
+    </tbody>
 
 </table>
-
 @section Scripts{
-<script src="~/js/createTable.js"></script>
+<script src="~/js/createTable.js.js"></script>
+<script src="~/js/table.js"></script>
 <script src="~/js/Product.js"></script>}
