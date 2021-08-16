@@ -14,7 +14,18 @@ $(document).ready(async function () {
     document.getElementById("btnGetId").addEventListener("click", async function () {
         let resp = await get();
         createTableLine(resp.data);
-    })
+    });
+
+
+    document.getElementById("modalId").addEventListener("click", async function () {
+
+        let resp = await get();
+        
+        createModalTableLine(resp.data);
+    });
+
+
+
     document.getElementById("btnListId").addEventListener("click", async function () {
         //debugger
         let query = {

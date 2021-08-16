@@ -4,10 +4,10 @@ function createTableList(productList = []) {
     }
 }
 
+
 function createTableLine(product) {
     
     var productBodyTable = document.getElementById("productBodyTableId");
-
     var trBody = document.createElement("tr");
 
     let tdId = document.createElement('td');
@@ -16,6 +16,7 @@ function createTableLine(product) {
     let tdAmount = document.createElement('td');
     let tdValue = document.createElement('td');
     let tdDelete = document.createElement('td');
+    let tdDetails = document.createElement('td');
 
     let productId = document.createTextNode(product.id);
     let productCode = document.createTextNode(product.code);
@@ -25,18 +26,42 @@ function createTableLine(product) {
 
     let textDelete = document.createTextNode('Deletar');
     let buttonDelete = document.createElement('button');
+    let textDetails = document.createTextNode('Detalhes');
+    let buttonDetails = document.createElement('button');
 
-    tdId.setAttribute('id', 'productIdToDelete');
+    tdId.setAttribute('id', 'productId' + product.id);
+
     buttonDelete.setAttribute('onclick', "deleteById($event)");
-    buttonDelete.addEventListener('click', function () {
-
-        var productId = document.getElementById('productIdToDelete');
-        productId = productId.innerText;
-        deleteById(productId);
+    buttonDelete.addEventListener('click', function (event) {
+        deleteById(product.id);
 
     }, false);
 
+    buttonDetails.setAttribute('onclick', "get($event)");
+    buttonDetails.addEventListener('click', function (event) {
+
+        let detailsProductId = document.getElementById("detailsProductId");
+        detailsProductId.innerText = product.id
+
+        let detailsProductCode = document.getElementById("detailsProductCode");
+        detailsProductCode.innerText = product.code
+
+        let detailsProductAmount = document.getElementById("detailsProductAmount");
+        detailsProductAmount.innerText = product.amount
+
+        let detailsProductValue = document.getElementById("detailsProductValue");
+        detailsProductValue.innerText = product.value
+
+        let detailsProductDescription = document.getElementById("detailsProductDescription");
+        detailsProductDescription.innerText = product.description
+
+        $("#modalId").modal();
+
+    }, false);
+
+
     buttonDelete.appendChild(textDelete)
+    buttonDetails.appendChild(textDetails)
 
     tdId.appendChild(productId);
     tdCode.appendChild(productCode);
@@ -44,6 +69,7 @@ function createTableLine(product) {
     tdAmount.appendChild(productAmount);
     tdValue.appendChild(productValue);
     tdDelete.appendChild(buttonDelete);
+    tdDetails.appendChild(buttonDetails);
 
     trBody.appendChild(tdId);
     trBody.appendChild(tdCode);
@@ -51,6 +77,7 @@ function createTableLine(product) {
     trBody.appendChild(tdAmount);
     trBody.appendChild(tdValue);
     trBody.appendChild(tdDelete);
+    trBody.appendChild(tdDetails);
 
     if (product.id >= 0) {
         productBodyTable.appendChild(trBody);
@@ -58,4 +85,51 @@ function createTableLine(product) {
     else {
         alert("Id nao encontrada!");
     }
+}
+
+
+
+//---------------------isso chama o modal-----------------------
+$(document).ready(function () {
+    $("#btnCallModalId").click(function () {
+        $("#modalId").modal();
+    });
+});
+
+//--------------------------------------------------------------------------------------------------
+
+
+
+function createModalTableLine(product) {
+
+    var productBodyModalTable = document.getElementById("productBodyModalTableId");
+
+    var trModalBody = document.createElement("tr");
+
+    let tdModalId = document.createElement('td');
+    let tdModalCode = document.createElement('td');
+    let tdModalDescription = document.createElement('td');
+    let tdModalAmount = document.createElement('td');
+    let Modal = document.createElement('td');
+
+    let productModalId = document.createTextNode(product.id);
+    let productModalCode = document.createTextNode(product.code);
+    let productModalDescription = document.createTextNode(product.description);
+    let productModalAmount = document.createTextNode(product.amount);
+    let productModalValue = document.createTextNode(product.value);
+
+    tdModalId.appendChild(productModalId);
+    tdCModalode.appendChild(productModalCode);
+    tdModalDescription.appendChild(productDescription);
+    tdModalAmount.appendChild(productModalAmount);
+    tdModalValue.appendChild(productModalValue);
+
+    trModalBody.appendChild(tdModalId);
+    trModalBody.appendChild(tdCModalode);
+    trModalBody.appendChild(tdModalDescription);
+    trModalBody.appendChild(tdModalAmount);
+    trModalBody.appendChild(tdModalValue);
+
+
+    productBodyModalTable.appendChild(trModalBody);
 }

@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Product Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";    
+}
+<div class="container">
+    <!--Modal-->
+    <div class="modal fade" id="modalId" role="dialog">
+        <div class="modal-dialog">
+
+            <!--Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="padding:15px 25px;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;" align="center">
+                    <form role="form">
+                        <div class="row">
+                            <div class="col-3">
+                                <span>Id</span>
+                                <span id="detailsProductId"></span>
+                            </div>
+                            <div class="col-3">
+                                <span>Code</span>
+                                <span id="detailsProductCode"></span>
+                            </div>
+                            <div class="col-3">
+                                <span>Amount</span>
+                                <span id="detailsProductAmount"></span>
+                            </div>
+                            <div class="col-3">
+                                <span>Value</span>
+                                <span id="detailsProductValue"></span>
+                            </div>
+                        </div>
+                        <div class="row">                            
+                            <div class="col-9" align="center">
+                                <span>Description<br></span>
+                                <span id="detailsProductDescription"></span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+<script src="~/js/createTable.js"></script>
+<script src="~/js/table.js"></script>
+<script src="~/js/Product.js"></script>}
