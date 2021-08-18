@@ -17,6 +17,7 @@ function createTableLine(product) {
     let tdValue = document.createElement('td');
     let tdDelete = document.createElement('td');
     let tdDetails = document.createElement('td');
+    let tdUpdate = document.createElement('td');
 
     let productId = document.createTextNode(product.id);
     let productCode = document.createTextNode(product.code);
@@ -28,6 +29,8 @@ function createTableLine(product) {
     let buttonDelete = document.createElement('button');
     let textDetails = document.createTextNode('Detalhes');
     let buttonDetails = document.createElement('button');
+    let textUpdate = document.createTextNode('Editar');
+    let buttonUpdate = document.createElement('button');
 
     tdId.setAttribute('id', 'productId' + product.id);
 
@@ -60,8 +63,30 @@ function createTableLine(product) {
     }, false);
 
 
-    buttonDelete.appendChild(textDelete)
-    buttonDetails.appendChild(textDetails)
+    buttonUpdate.addEventListener('click', function (event) {
+        
+        let editProductId = document.getElementById("editId");
+        editProductId.innerText = product.id;
+
+        let detailsProductCode = document.getElementById("editCodeId");
+        detailsProductCode.value = product.code
+
+        let detailsProductAmount = document.getElementById("editAmountId");
+        detailsProductAmount.value = product.amount
+
+        let detailsProductValue = document.getElementById("editValueId");
+        detailsProductValue.value = product.value
+
+        let detailsProductDescription = document.getElementById("editDescriptionId");
+        detailsProductDescription.value = product.description
+
+        $("#modalUpdateId").modal();
+
+    }, false);
+
+    buttonDelete.appendChild(textDelete);
+    buttonDetails.appendChild(textDetails);
+    buttonUpdate.appendChild(textUpdate);
 
     tdId.appendChild(productId);
     tdCode.appendChild(productCode);
@@ -70,6 +95,7 @@ function createTableLine(product) {
     tdValue.appendChild(productValue);
     tdDelete.appendChild(buttonDelete);
     tdDetails.appendChild(buttonDetails);
+    tdUpdate.appendChild(buttonUpdate);
 
     trBody.appendChild(tdId);
     trBody.appendChild(tdCode);
@@ -78,6 +104,7 @@ function createTableLine(product) {
     trBody.appendChild(tdValue);
     trBody.appendChild(tdDelete);
     trBody.appendChild(tdDetails);
+    trBody.appendChild(tdUpdate);
 
     if (product.id >= 0) {
         productBodyTable.appendChild(trBody);
@@ -93,6 +120,12 @@ function createTableLine(product) {
 $(document).ready(function () {
     $("#btnCallModalId").click(function () {
         $("#modalId").modal();
+    });
+});
+
+$(document).ready(function () {
+    $("#btnCallModalUpdateId").click(function () {
+        $("#modalUpdateId").modal();
     });
 });
 

@@ -59,8 +59,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    background-color: #F4DFD0;
+    margin-bottom: 60px;
 }
 .footer {
   position: absolute;
@@ -72,8 +73,36 @@ body {
 
 /*modal*/
 .modal-header, h4, .close {
-    background-color: #0f67c1;
+    background-color: #5C3D2E;
     color: white !important;
     text-align: center;
     font-size: 30px;
+}
+
+#modalContentBody {
+    color: black;
+    display: inline;
+    vertical-align:text-bottom;
+    border: 1px solid black;    
+}
+#btnPutModalId {
+    background-color: forestgreen;
+    color: black;
+    justify-content: flex-end;
+}
+
+#btnDelete {
+    background-color: #f21010;
+    color: black;
+    display: inline;
+    vertical-align: text-bottom;
+    border: 1px solid black;
+}
+
+.red-border {
+    border: 1px solid red;
+}
+
+.grey-border {
+    border: 1px solid grey;
 }
