@@ -1,15 +1,15 @@
 function createTableList(productList = []) {
+
     for (let index = 0; index < productList.length; index++) {
         createTableLine(productList[index]);
     }
-}
+} 
 
 
 function createTableLine(product) {
     
     var productBodyTable = document.getElementById("productBodyTableId");
-    var trBody = document.createElement("tr");
-
+    var trBody = document.createElement('tr');
     let tdId = document.createElement('td');
     let tdCode = document.createElement('td');
     let tdDescription = document.createElement('td');
@@ -19,25 +19,41 @@ function createTableLine(product) {
     let tdDetails = document.createElement('td');
     let tdUpdate = document.createElement('td');
 
+
     let productId = document.createTextNode(product.id);
     let productCode = document.createTextNode(product.code);
     let productDescription = document.createTextNode(product.description);
     let productAmount = document.createTextNode(product.amount);
     let productValue = document.createTextNode(product.value);
+    
 
     let textDelete = document.createTextNode('Deletar');
     let buttonDelete = document.createElement('button');
     let textDetails = document.createTextNode('Detalhes');
     let buttonDetails = document.createElement('button');
     let textUpdate = document.createTextNode('Editar');
-    let buttonUpdate = document.createElement('button');
+    let buttonUpdate = document.createElement('button');    
 
     tdId.setAttribute('id', 'productId' + product.id);
 
     buttonDelete.setAttribute('onclick', "deleteById($event)");
-    buttonDelete.addEventListener('click', function (event) {
-        deleteById(product.id);
 
+    buttonDelete.setAttribute('class', 'btn-Delete');
+    buttonDetails.setAttribute('class', 'btn-Details');
+    buttonUpdate.setAttribute('class', 'btn-Edit');
+
+
+
+    buttonDelete.addEventListener('click', function (event) {
+
+        if (window.confirm("Voce deseja realmente DELETAR essa linha?")) {
+            deleteById(product.id);
+            document.location.reload(true);
+        }
+        else {
+            document.location.reload(true);
+            
+        }
     }, false);
 
     buttonDetails.setAttribute('onclick', "get($event)");
@@ -97,6 +113,8 @@ function createTableLine(product) {
     tdDetails.appendChild(buttonDetails);
     tdUpdate.appendChild(buttonUpdate);
 
+    tdDescription.setAttribute('class', 'tdDescription');
+
     trBody.appendChild(tdId);
     trBody.appendChild(tdCode);
     trBody.appendChild(tdDescription);
@@ -128,6 +146,13 @@ $(document).ready(function () {
         $("#modalUpdateId").modal();
     });
 });
+
+$(document).ready(function () {
+    $("#btnTestId").click(function () {
+        $("#modalTestId").modal();
+    });
+});
+
 
 //--------------------------------------------------------------------------------------------------
 

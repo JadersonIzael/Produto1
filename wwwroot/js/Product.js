@@ -19,6 +19,7 @@ $(document).ready(async function () {
         let editValue = document.getElementById("editValueId");
 
         let allFilled = true;
+
         editCode.style = null;
         let code = editCode.value;
         if (code === null || code === '' || code === undefined) {
@@ -70,7 +71,7 @@ $(document).ready(async function () {
 
     });
 
-
+    
 
 
     document.getElementById("modalId").addEventListener("click", async function () {
@@ -86,7 +87,7 @@ $(document).ready(async function () {
         let resp = await get(product);
 
         createModalTableLine(resp.data);
-
+        
     });
 
 

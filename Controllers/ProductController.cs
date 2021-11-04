@@ -133,6 +133,7 @@ namespace ApiProduct2.Controllers
             }
 
             query.Append($"SELECT * FROM Produtos {where} ");
+            query.Append(" Order By Produtos.Id ");
 
             var parameters = new DynamicParameters();
 
